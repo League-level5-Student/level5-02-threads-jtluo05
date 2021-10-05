@@ -10,6 +10,11 @@ public class WorkQueue implements Runnable {
 	private volatile boolean isRunning = true;
 
 	public WorkQueue() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < threads.length; i++) {
+			threads[i] = new Thread(this);
+			threads[i].start();
+		}
 		int totalThreads = Runtime.getRuntime().availableProcessors() - 1;
 		threads = new Thread[totalThreads];
 	}
@@ -18,7 +23,7 @@ public class WorkQueue implements Runnable {
 		return threads.length;
 	}
 
-	public void shutDown() {
+	public void shutdown() {
 		completeAllJobs();
 		isRunning = false;
 		synchronized (jobQueue) {
@@ -26,7 +31,7 @@ public class WorkQueue implements Runnable {
 		}
 	}
 
-	private void addJod(Job j) {
+	void addJob(Job j) {
 		synchronized (jobQueue) {
 			jobQueue.add(j);
 			jobQueue.notify();
@@ -40,7 +45,7 @@ public class WorkQueue implements Runnable {
 				j = jobQueue.remove();
 
 				if (j != null) {
-					j.preform();
+					j.perform();
 					return true;
 				}
 
@@ -75,11 +80,7 @@ public class WorkQueue implements Runnable {
 			}
 
 		}
-		// TODO Auto-generated method stub
-		for (int i = 0; i < threads.length; i++) {
-			threads[i] = new Thread(this);
-			threads[i].start();
-		}
+	
 
 	}
 
