@@ -1,5 +1,7 @@
 package _05_Synchronized_Swimming;
 
+import java.util.Iterator;
+
 /*
  * This class represents one of the world-class swimmers that would like to take
  * a turn in the pool!
@@ -16,6 +18,10 @@ public class Swimmer extends Thread {
 
 	@Override
 	public void run() {
-		// ...
+		SYN ss= new SYN();
+		Swimmer s=new Swimmer("John");
+		for (int i = 0; i < 5; i++) {
+			ss.takeTurn(s);
+		}
 	}
 }
