@@ -24,7 +24,7 @@ public class SynchedSplitLoops {
 		Thread t1 = new Thread(() -> {
 			synchronized (o) {
 			
-				for (int i = 0; i < 10; i++) {
+				for (int i = 0; i < 10001; i++) {
 					try {
 						o.wait();
 					} catch (InterruptedException e) {
@@ -39,7 +39,7 @@ public class SynchedSplitLoops {
 
 		Thread t2 = new Thread(() -> {
 			synchronized (o) {
-				for (int t = 0; t < 10; t++) {
+				for (int t = 0; t < 10001; t++) {
 					System.out.println(counter);
 					o.notify();
 					try {
